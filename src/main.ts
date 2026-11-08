@@ -63,8 +63,8 @@ const renderSettings = (): HTMLElement => {
   const panel = el('section', 'panel settings-panel');
   append(
     panel,
-    el('p', 'eyebrow', '01 / ПАРАМЕТРЫ'),
-    el('h2', '', 'Ваш код. Ваши правила.'),
+    el('p', 'eyebrow', '01 — НАСТРОЙКА РАУНДА'),
+    el('h2', '', 'Выберите сложность'),
   );
   const form = el('form');
   const baseLabel = el('label', 'field-label', 'Система счисления');
@@ -92,7 +92,11 @@ const renderSettings = (): HTMLElement => {
   lengthSelect.id = 'length';
   lengthLabel.htmlFor = lengthSelect.id;
   [2, 3, 4, 5, 6].forEach((length) => {
-    const option = el('option', '', `${length} цифры`);
+    const option = el(
+      'option',
+      '',
+      `${length} ${length < 5 ? 'цифры' : 'цифр'}`,
+    );
     option.value = String(length);
     option.disabled = length > settings.base;
     option.selected = length === settings.length;
@@ -149,7 +153,7 @@ const renderGame = (): HTMLElement => {
   const panel = el('section', 'panel game-panel');
   const heading = append(
     el('div', 'section-top'),
-    el('p', 'eyebrow', '02 / ВЗЛОМАЙТЕ КОД'),
+    el('p', 'eyebrow', 'СЕКРЕТНЫЙ КОД'),
     el(
       'span',
       `status ${game?.status === 'won' ? 'won' : ''}`,
@@ -164,8 +168,8 @@ const renderGame = (): HTMLElement => {
     'h2',
     '',
     game?.status === 'won'
-      ? 'Код раскрыт. Отличная работа!'
-      : 'Дедукция начинается здесь.',
+      ? 'Есть контакт. Код раскрыт!'
+      : 'Что скрывается за цифрами?',
   );
   append(panel, heading, title);
   const slots = el('div', 'secret-slots');
@@ -328,7 +332,11 @@ const renderHistory = (): HTMLElement => {
   if (!game?.history.length)
     append(
       region,
-      el('div', 'empty', 'Здесь будут ваши гипотезы и подсказки.'),
+      el(
+        'div',
+        'empty',
+        'Пока ни одной версии. Введите комбинацию — и здесь появится первая зацепка.',
+      ),
     );
   else {
     const table = el('table');
@@ -369,7 +377,11 @@ const renderRecords = (): HTMLElement => {
   );
   if (!records.length)
     panel.append(
-      el('div', 'empty', 'Первый раскрытый код станет вашим первым рекордом.'),
+      el(
+        'div',
+        'empty',
+        'Ваше лучшее ещё впереди. Раскройте первый код, чтобы попасть в таблицу.',
+      ),
     );
   else {
     const list = el('ol', 'records');
@@ -402,35 +414,74 @@ const renderRecords = (): HTMLElement => {
   return panel;
 };
 const render = (): void => {
+  const brand = append(
+    el('a', 'brand'),
+    el('span', 'brand-mark', 'B/C'),
+    el('span', 'brand-name', 'bulls & cows'),
+  );
+  brand.href = '#';
+  brand.setAttribute('aria-label', 'Bulls and Cows — начало страницы');
   const header = append(
     el('header', 'header'),
-    append(el('a', 'brand', 'B/C'), el('span', '', 'BULLS & COWS')),
-    el('span', 'header-note', 'ИГРА В ЛОГИКУ / 01'),
+    brand,
+    append(
+      el('div', 'header-note'),
+      el('span', 'online-dot'),
+      el('span', '', 'ИГРОВАЯ КОМНАТА'),
+      el('span', 'room-number mono', '№ 001'),
+    ),
+    el('span', 'header-edition mono', 'МЕНЬШЕ ШУМА. БОЛЬШЕ ЛОГИКИ.'),
   );
-  const hero = append(
-    el('section', 'hero'),
-    el('p', 'eyebrow', 'НИЧЕГО СЛУЧАЙНОГО. КРОМЕ СЕКРЕТА.'),
-    el('h1', '', 'Каждая цифра — улика.'),
+  const hero = el('section', 'hero');
+  const heroTitle = append(
+    el('h1'),
+    el('span', '', 'ЛОМАЙ КОД.'),
+    el('span', 'title-outline', 'НЕ ГОЛОВУ.'),
+  );
+  const heroCopy = append(
+    el('div', 'hero-content'),
+    el('p', 'eyebrow', 'КЛАССИКА ДЕДУКЦИИ / НОВЫЙ УРОВЕНЬ'),
+    heroTitle,
     el(
       'p',
       'hero-copy',
-      'Раскройте секретный код. Думайте, проверяйте гипотезы и находите порядок в цифрах.',
+      'Один секрет. Уникальные цифры. Только ваша логика и подсказки после каждой попытки.',
     ),
   );
-  const legend = el('div', 'legend');
+  const artwork = el('div', 'code-art');
+  artwork.setAttribute('aria-hidden', 'true');
   append(
-    legend,
+    artwork,
+    el('span', 'art-caption mono', 'DECODE THE UNKNOWN'),
+    el('div', 'art-orbit orbit-one'),
+    el('div', 'art-orbit orbit-two'),
+    el('span', 'art-digit digit-one mono', '0'),
+    el('span', 'art-digit digit-two mono', '1'),
+    el('span', 'art-digit digit-three mono', '?'),
+    el('span', 'art-digit digit-four mono', 'A'),
+    el('span', 'art-cross cross-one', '+'),
+    el('span', 'art-cross cross-two', '+'),
+    el('span', 'art-bottom mono', 'ЛОГИКА > УДАЧА'),
+  );
+  append(hero, heroCopy, artwork);
+  const legend = append(
+    el('div', 'legend'),
     append(
-      el('div'),
-      el('span', 'legend-icon bull-count', '●'),
-      el('strong', '', 'Бык'),
-      el('span', '', 'Цифра и место совпали'),
+      el('div', 'legend-title'),
+      el('span', 'eyebrow', 'КАК ЧИТАТЬ ПОДСКАЗКИ'),
+      el('span', 'legend-arrow', '↗'),
     ),
     append(
-      el('div'),
+      el('div', 'legend-item'),
+      el('span', 'legend-icon bull-count', '●'),
+      el('strong', '', 'Бык'),
+      el('span', '', 'Верная цифра. Верное место.'),
+    ),
+    append(
+      el('div', 'legend-item'),
       el('span', 'legend-icon cow-count', '○'),
       el('strong', '', 'Корова'),
-      el('span', '', 'Цифра верная, место — нет'),
+      el('span', '', 'Верная цифра. Другое место.'),
     ),
   );
   const main = append(
@@ -442,8 +493,8 @@ const render = (): void => {
   );
   const footer = append(
     el('footer'),
-    el('span', '', 'Без спешки. Без лимита попыток.'),
-    el('span', 'mono', 'BIN / OCT / DEC / HEX'),
+    el('span', '', 'B/C — маленькая игра для больших открытий.'),
+    el('span', 'mono', 'БЕЗ ЛИМИТА ПОПЫТОК / БЕЗ СПЕШКИ'),
   );
   root.replaceChildren(header, hero, legend, main, footer);
 };
