@@ -1,0 +1,4 @@
+node_modules/
+dist/
+coverage/
+.openai/*.tar.gz
