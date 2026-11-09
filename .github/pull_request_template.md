@@ -10,7 +10,7 @@ Bulls and Cows — функциональное ядро на TypeScript, TDD и
 - Скриншот: добавить изображение готовой игры.
 - Дата сдачи: заполнить по расписанию курса.
 - Дедлайн: заполнить по расписанию курса.
-- Документация: [DESIGN.md](../blob/bulls-and-cows/DESIGN.md).
+- Документация: [DESIGN.md](https://github.com/DaniyalBeisenbay/bulls-and-cows/blob/bulls-and-cows/DESIGN.md).
 - Самооценка: заполнить после проверки рабочего деплоя.
 
 ## TDD

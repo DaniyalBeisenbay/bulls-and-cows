@@ -45,3 +45,5 @@ npm run build
 GitHub Pages для приватного репозитория требует подходящего плана GitHub (Pro/Team/Enterprise). Если план не поддерживает Pages, оставьте учебный репозиторий приватным и используйте другой статический хостинг. См. [документацию GitHub](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages).
 
 Редизайн: тёмная игровая комната, лаймовые акценты, отдельная панель настроек, игровое поле и история рядом; на мобильных — последовательная раскладка. Ядро и история TDD сохранены.
+
+Учебный GitHub-репозиторий: [DaniyalBeisenbay/bulls-and-cows](https://github.com/DaniyalBeisenbay/bulls-and-cows). Репозиторий приватный. На текущем тарифе Pages для него недоступен, поэтому workflow публикации запускается вручную после решения вопроса хостинга. CI включён для push и PR.

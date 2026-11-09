@@ -1,7 +1,5 @@
 name: Deploy GitHub Pages
 on:
-  push:
-    branches: [bulls-and-cows]
   workflow_dispatch:
 permissions:
   contents: read
