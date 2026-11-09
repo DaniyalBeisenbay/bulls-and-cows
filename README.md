@@ -1,5 +1,7 @@
 # Bulls and Cows
 
+[Play on GitHub Pages](https://daniyalbeisenbay.github.io/bulls-and-cows-play/)
+
 Игра «Быки и коровы»: TypeScript, функциональное ядро, TDD, интерфейс на DOM API. Без бэкенда и без бандлера в production-сборке. Четыре системы счисления, длины 2–6, неограниченные попытки, личный топ-10 в localStorage.
 
 ## Запуск
